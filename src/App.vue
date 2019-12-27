@@ -1,17 +1,28 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <router-view />
+
+    <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
+    <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+// import HelloWorld from './components/HelloWorld.vue'
+// import firebase from './main'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    // HelloWorld
+  },
+  methods: {
+    getLists(){
+      this.$store.dispatch('LOAD_LISTS')
+    }
+  },
+  created() {
+    this.getLists()
   }
 }
 </script>
