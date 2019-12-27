@@ -5,6 +5,10 @@
 npm install
 ```
 
+```
+npm install --save firebase
+```
+
 ### Compiles and hot-reloads for development
 ```
 npm run serve
