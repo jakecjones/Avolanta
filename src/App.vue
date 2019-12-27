@@ -27,13 +27,36 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+$borderRadius: 10px;
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
   margin-top: 60px;
+}
+
+.container {
+  display: flex;
+  width: 90%;
+  flex-direction: column;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+}
+
+input {
+  border: none;
+  outline: none;
+  padding: 2vw;
+}
+.home-input {
+  width: 50%;
+  background-color: #e6ffee;
+  border-radius: $borderRadius;
+  border-top-left-radius: 0;
+  text-align: center;
+  font-size: 2vw;
 }
 </style>

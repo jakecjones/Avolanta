@@ -1,11 +1,13 @@
 <template>
     <section class="list-view">
-        <template v-if="lists.length > 0">
-            Create your first list
-            <input type="text" placeholder="list name">
-            <button>add list</button>
-            {{lists.length}}
-        </template>
+      <div class="container">
+          <template v-if="lists.length > 0">
+              Create your first list
+              <input class="home-input" type="text" placeholder="list name">
+              <button>add list</button>
+              {{lists.length}}
+          </template>
+        </div>
     </section>
 </template>
 
@@ -34,18 +36,14 @@ export default {
 </script>
 
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 
 .list-view {
+  width: 100%;
+
+
+
     input {
-        background-color: red;
+        // background-color: red;
     }
 }
 </style>
