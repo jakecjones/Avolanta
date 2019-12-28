@@ -19,12 +19,10 @@ export const store = new Vuex.Store({
   state: {
       lists: [],
       tasks: [],
-      test: 'this is a test'
     },
     getters: {
         lists: state => state.lists,
-        tasks: state => state.tasks,
-        test: state => state.test
+        tasks: state => state.tasks
     },
     mutations: {
       loadList(state, payload) {
@@ -40,26 +38,12 @@ export const store = new Vuex.Store({
           const payload = []
             querySnapshot.forEach(function(doc) {
               payload.push(doc.data())
-                // cities.push(doc.data().name);
             });
             context.commit('loadList', payload)
-
-            // console.log("Current cities in CA: ", cities.join(", "));
         });
-
-        // .onSnapshot(function (doc){
-        //   const payload = doc.data()
-        //   context.commit('loadList', payload)
-        // })
-
-        //   .onSnapshot(function(doc) {
-        //     const payload = doc.data()
-        //     context.commit('loadList', payload)
-
-        //     // window.console.log("Current data: ", doc.data());
-        // });
-
-
+      },
+      ADD_LIST(context, payload) {
+        db.collection("lists").add(payload)
       }
     }
 });
