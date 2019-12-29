@@ -7,17 +7,20 @@
           <button @click="addList(listTitle)" class="list-view__add">add list</button>
         </template>
         <template v-else>
+          <div class="controls">
+            <div class="controls__title">My Lists</div>
+            <div @click="$router.push('/create-list')" class="controls__action">
+              <img src="../../static/plus.svg" alt="">
+            </div>
+          </div>
           <div class="list-view__lists">
             <template v-for="(display, idx) in lists">
-              <div :key="idx" class="list-view__list-item">
+              <div :key="idx" class="list-view__list-item" @click="$router.push('/create-list/' + display.title)">
                 <div class="list-view__list-item-container">{{display.title[0]}}</div>
                 <div class="list-view__list-title">{{display.title}}</div>
               </div>
-
             </template>
           </div>
-          <input class="home-input" type="text" placeholder="list name" v-model="listTitle">
-          <button @click="addList(listTitle)" class="list-view__add">add list</button>
         </template>
       </div>
     </section>

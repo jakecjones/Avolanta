@@ -2,10 +2,18 @@
     <section class="list-view">
       <div class="container">
           <div class="controls">
-            <div class="controls__title">{{listTitle}}</div>
+            <div class="controls__action">
+              <img src="../../static/back-arrow.svg" alt="">
+            </div>
+          </div>
+          <div class="controls">
+            <input class="controls__title" v-model="listTitle" placeholder="List Title">
             <div class="controls__action">
               <img src="../../static/plus.svg" alt="">
             </div>
+          </div>
+          <div class="controls">
+            <textarea cols="30" rows="10" placeholder="Description"></textarea>
           </div>
       </div>
     </section>
@@ -99,6 +107,9 @@ export default {
   justify-content: center;
   align-items: center;
   border-radius: 20px;
+}
+
+textarea {
 }
 
 // &__list-title {
