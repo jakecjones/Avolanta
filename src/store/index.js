@@ -42,7 +42,7 @@ export const store = new Vuex.Store({
 
           payload != null
           ? setTimeout(() => ({active: state.siteNotification.active = true , message: state.siteNotification.message = message}), 750)
-          : setTimeout(() => ({active: state.siteNotification.active = true , message: state.siteNotification.message = 'Untitled Deleted'}), 750)
+          : setTimeout(() => ({active: state.siteNotification.active = true , message: state.siteNotification.message = 'Untitled deleted'}), 750)
       },
       loadList(state, payload) {
           state.lists = []

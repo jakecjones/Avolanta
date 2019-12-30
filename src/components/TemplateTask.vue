@@ -50,27 +50,6 @@
           <div class="controls">
             <textarea @keyup="saveTask()" cols="30" rows="2" placeholder="Description" v-model="activeTask.description"></textarea>
           </div>
-          <div class="controls">
-            <div class="controls__sub-title">History</div>
-          </div>
-          <div class="controls">
-            <div class="tasks">
-              <!-- <div v-for="(display, idx) in tasks" :key="idx" class="controls__task-list">
-                <div v-if="tasks.length != idx + 1" class="controls__task-border"></div>
-                <div @click="updateTask(display)" v-if="display.status == 'open'" class="controls__task-checked"></div>
-
-                <div @click="updateTask(display)" v-else class="controls__task-checked-active">
-                  <img src="../../static/checkmark.svg">
-                </div>
-
-                <input @keyup="saveTask(display)" @keydown.enter="createTask(idx)" class="task-input" type="text" v-model="display.title" :ref="idx" placeholder="task name">
-
-                <div class="controls__more" @click="$router.push('/task/' + display.id)">
-                  <img src="../../static/more.svg">
-                </div>
-              </div> -->
-            </div>
-          </div>
       </div>
       <section class="options">
         <div @click="deleteTask()" class="options__action">
