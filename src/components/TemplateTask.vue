@@ -29,11 +29,20 @@
           
           <section class="options">
             <span>Priority</span>
-            <div @click="deleteTask()" class="options__icon">
-              <img src="../../static/priority.svg">
+            <div @click="toolsActive = !toolsActive">
+              <img class="options__icon" v-if="activeTask.priority == null" src="../../static/priority.svg">
+              <div v-else-if="activeTask.priority == 'low'" class="tool tools-low spacer">Low</div>
+              <div v-else-if="activeTask.priority == 'medium'" class="tool tools-medium spacer">Medium</div>
+              <div v-else-if="activeTask.priority == 'high'" class="tool tools-high spacer">High</div>
+
+              <div class="tools" :class="{'tools-active' : toolsActive}">
+                <div @click="activeTask.priority = 'low'" class="tool tools-low">Low</div>
+                <div @click="activeTask.priority = 'medium'" class="tool tools-medium">Medium</div>
+                <div @click="activeTask.priority = 'high'" class="tool tools-high">High</div>
+              </div>
             </div>   
             <span>Due Date</span>   
-            <div @click="deleteTask()" class="options__icon">
+            <div class="options__icon">
               <img src="../../static/date.svg">
             </div> 
           </section>
@@ -79,8 +88,7 @@ export default {
   name: 'list-view',
   data () {
     return {
-      listTitle: null,
-      listDescription: null
+      toolsActive: false
     }
   },
   components: {
@@ -125,7 +133,6 @@ export default {
   created() {
     let path = this.$route.path.split('/task/')[1]
     this.$store.dispatch('FETCH_TASK', path)
-    // this.$store.dispatch('LOAD_TASKS', path)
   }
 }
 </script>

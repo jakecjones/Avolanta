@@ -241,7 +241,60 @@ $darkColor: #373542;
     margin-top: -7.5px;
   }
 }
+.tools-low {
+  background-color: #e6ffee;
+  color: #3ec196;
+}
+.tools-medium {
+  background-color: #cac3d5;
+  color: #7b6996;
+}
+.tools-high {
+  background-color: #fae9e8;
+  color: #e8908a;
+}
+.tools {
+  position: absolute;
+  width: auto;
+  height: auto;
+  padding: 4vw 6vw;
+  background-color: #fff;
+  left: -10px;
+  top: 100%;
+  z-index: 99;
+  border-radius: $borderRadius;
+  font-family: 'ProximaNova-Bold', 'Avenir', sans-serif;
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 24px 0px;
+  transform: scale(0.8);
+  transition: all .3s cubic-bezier(0.075, 0.82, 0.165, 1);
+  opacity: 0;
+  pointer-events: none;
 
+}
+
+  .tool {
+    text-transform: uppercase;
+    font-size: 10px;
+    margin: 4vw 0;
+    border-radius: 50px;
+    font-family: 'ProximaNova-Bold', 'Avenir', sans-serif;
+    padding: 2vw 4vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: unset;
+  }
+
+.tools-active {
+  pointer-events: unset;
+  opacity: 1;
+  transform: scale(1);
+
+}
+.spacer {
+    margin: 0 5vw 0 2vw;
+}
 .options {
   width: 90%;
   height: auto;
@@ -251,6 +304,7 @@ $darkColor: #373542;
   display: flex;
   align-items: center;
   justify-content: left;
+
   &__action {
     width: 25px;
     height: 25px;
@@ -278,6 +332,7 @@ $darkColor: #373542;
   &__icon {
     width: 25px;
     height: 25px;
+    position: relative;
 
     border-radius: 50%;
     background-color: #fff;
@@ -286,12 +341,15 @@ $darkColor: #373542;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 7vw 0 3vw;
+    margin: 0 5vw 0 2vw;
 
     img { 
       width: 75%;
     }
   }
+
+
+
 
 }
 
@@ -442,4 +500,5 @@ input {
   margin: 30px auto;
   padding: 4vw 2vw; 
 }
+
 </style>

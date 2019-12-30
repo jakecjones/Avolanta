@@ -134,7 +134,8 @@ export const store = new Vuex.Store({
           title: null,
           description: null,
           lid: payload,
-          status: 'open'
+          status: 'open',
+          priority: null
         })
         .then((docRef) => {
           db.collection('tasks').doc(docRef.id).update({
