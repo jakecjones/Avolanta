@@ -22,6 +22,9 @@
             </div>
 
           </div>
+          <div v-if="activeTask.status == 'complete'" class="controls">
+            <span class="completed">completed</span>
+          </div>
           <div class="controls">
             <textarea @keyup="saveTask()" cols="30" rows="2" placeholder="Description" v-model="activeTask.description"></textarea>
           </div>
@@ -48,7 +51,7 @@
           </div>
       </div>
       <section class="options">
-        <div class="options__action">
+        <div @click="deleteTask()" class="options__action">
           <img src="../../static/trash.svg">
         </div>      
       </section>
@@ -98,11 +101,13 @@ export default {
     },
     createTask(){
       this.$store.dispatch('ADD_TASK', this.activeList.id)
-      this.$refs.search.focus()
     },
     changeStatus(){
       this.$store.dispatch('ADD_TASK', this.activeList.id)
-    }
+    },
+    deleteTask(){
+      this.$store.dispatch('DELETE_TASK', this.activeTask)
+    },
   },
   created() {
     let path = this.$route.path.split('/task/')[1]

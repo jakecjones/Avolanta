@@ -38,8 +38,10 @@ export const store = new Vuex.Store({
     },
     mutations: {
       siteNotification(state, payload){
-          payload !== null
-          ? setTimeout(() => ({active: state.siteNotification.active = true , message: state.siteNotification.message = payload}), 750)
+          const message = payload + ' deleted'
+
+          payload != null
+          ? setTimeout(() => ({active: state.siteNotification.active = true , message: state.siteNotification.message = message}), 750)
           : setTimeout(() => ({active: state.siteNotification.active = true , message: state.siteNotification.message = 'Untitled Deleted'}), 750)
       },
       loadList(state, payload) {
@@ -119,7 +121,7 @@ export const store = new Vuex.Store({
             updateID: db.collection('lists').doc(docRef.id).update({
               id: docRef.id
             }),
-            changeRoute: router.push('/create-list/' + docRef.id)
+            changeRoute: router.push('/list/' + docRef.id)
           }
 
         })
@@ -162,10 +164,27 @@ export const store = new Vuex.Store({
 
       DELETE_LIST(context, payload) {
         // const createdAt = new Date()
-        const messagePayload = payload.title + ' Deleted'
+        const messagePayload = payload.title
         return {
-          delete: db.collection("lists").doc(payload.id).delete(),
+          delete: db.collection("lists").doc(payload.id).delete()
+          .then(()=> {
+            db.collection("tasks").where("lid", "==", payload.id)
+            .onSnapshot(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                  doc.ref.delete()
+                });
+            });
+          }),
           route: router.push('/'),
+          notification: context.commit('siteNotification', messagePayload)
+        }
+      },
+      DELETE_TASK(context, payload) {
+        // const createdAt = new Date()
+        const messagePayload = payload.title + ' deleted'
+        return {
+          delete: db.collection("tasks").doc(payload.id).delete(),
+          route: router.push('/list/' + payload.lid),
           notification: context.commit('siteNotification', messagePayload)
         }
       },

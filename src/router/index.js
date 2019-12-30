@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import ListView from '@/components/ListView'
-import CreateList from '@/components/CreateList'
+import TemplateList from '@/components/TemplateList'
 import TemplateTask from '@/components/TemplateTask'
 
 Vue.use(Router)
@@ -10,9 +10,9 @@ let router = new Router({
   mode: 'history',
   routes: [
     {
-      path: '/create-list*',
-      name: 'CreateList',
-      component: CreateList
+      path: '/list*',
+      name: 'TemplateList',
+      component: TemplateList
     },
     {
       path: '/task*',

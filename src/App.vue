@@ -326,7 +326,7 @@ $darkColor: #373542;
       width: 50%;
       height: 50%;
     }
-  } 
+  }
   &__task-checked-active {
     width: 24px;
     height: 24px;
@@ -345,6 +345,10 @@ $darkColor: #373542;
       height: 80%;
     }
   } 
+  .completed {
+    color: #3ec196;
+    font-style: italic;
+  }
   &__more{
     width: 24px;
     height: 24px;

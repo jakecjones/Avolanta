@@ -16,13 +16,13 @@
           <div class="list-view__lists">
             <template v-for="(display, idx) in lists">
               <template v-if="display.title != null">
-                <div :key="idx" class="list-view__list-item" @click="$router.push('/create-list/' + display.id)">
+                <div :key="idx" class="list-view__list-item" @click="$router.push('/list/' + display.id)">
                   <div class="list-view__list-item-container">{{display.title[0]}}</div>
                   <div class="list-view__list-title">{{display.title}}</div>
                 </div>
               </template>
               <template v-else>
-                <div :key="idx" class="list-view__list-item" @click="$router.push('/create-list/' + display.id)">
+                <div :key="idx" class="list-view__list-item" @click="$router.push('/list/' + display.id)">
                   <div class="list-view__list-item-container">U</div>
                   <div class="list-view__list-title">Untitled</div>
                 </div>
