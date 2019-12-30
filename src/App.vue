@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+    <div class="site-notification" :class="{'site-notification-active' : siteNotification.active}">
+      {{siteNotification.message}}
+    </div>
     <div class="container">
 
       <svg @click="$router.push('/')" class="logo"  :class="{'logo-icon' : hideIcon}" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -68,12 +71,15 @@
           </svg>
 
     </div>
+
     <router-view />
 
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 
 export default {
   name: 'app',
@@ -91,6 +97,12 @@ export default {
       : this.hideIcon = true
     }
   },
+
+  computed: {
+    ...mapGetters([
+      'siteNotification'
+    ])
+  },
   components: {
     
   },
@@ -101,6 +113,20 @@ export default {
   },
   created() {
     this.getLists()
+
+this.$store.watch(
+    (state)=>{
+        return state.siteNotification;
+    },
+    (val)=>{
+      val.active == true
+      ? setTimeout(() => ({active: this.siteNotification.active = false}), 2500)
+      : null //do something on data change
+    },
+    {
+        deep: true //add this if u need to watch object properties change etc.
+    }
+);
   }
 }
 </script>
@@ -177,6 +203,56 @@ $darkColor: #373542;
     fill: none;
   }
 
+.site-notification {
+  background-color: #3EC196;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  height: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  left: 0;
+  font-family: 'ProximaNova-Thin', 'Avenir', sans-serif;
+  overflow: hidden;
+  transition: all .5s cubic-bezier(0.86, 0, 0.07, 1);
+}
+.site-notification-active {
+  height: 8vw;
+}
+
+.options {
+  width: 80%;
+  height: auto;
+  padding: 6vw 0;
+  margin: 0 auto;
+  position: relative;
+  &__action {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    bottom: 20px;
+    right: 0;
+
+
+
+    border-radius: 50%;
+    position: absolute;
+    background-color: #fff;
+    border: .09rem dashed #b5e3c8;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img { 
+      width: 75%;
+    }
+  }
+}
+
 .controls {
   width: 90%;
   display: flex;
@@ -189,6 +265,7 @@ $darkColor: #373542;
     font-size: 6vw;
     font-family: 'ProximaNova-Bold', 'Avenir', sans-serif;
     color: $darkColor;
+    text-align: left;
     &::placeholder {
       color: $darkColor;
     }

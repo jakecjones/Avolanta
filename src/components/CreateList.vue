@@ -37,6 +37,11 @@
             </div>
           </div>
       </div>
+      <section class="options">
+        <div @click="deleteList()" class="options__action">
+            <img src="../../static/trash.svg">
+        </div>      
+      </section>
     </section>
 </template>
 
@@ -86,7 +91,10 @@ export default {
     },
     changeStatus(){
       this.$store.dispatch('ADD_TASK', this.activeList.id)
-    }
+    },
+    deleteList(){
+      this.$store.dispatch('DELETE_LIST', this.activeList)
+    },
   },
   created() {
     let path = this.$route.path.split('/create-list/')[1]

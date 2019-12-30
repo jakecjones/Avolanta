@@ -45,6 +45,11 @@
             </div>
           </div>
       </div>
+      <section class="options">
+        <div class="options__action">
+          <img src="../../static/trash.svg">
+        </div>      
+      </section>
     </section>
 </template>
 

@@ -3,6 +3,8 @@ import Vuex from 'vuex'
 import * as firebase from "firebase/app"
 import "firebase/auth"
 import "firebase/firestore"
+import router from '../router'
+
 
 import firebaseConfig from '../../config/firebase'
 
@@ -16,19 +18,30 @@ const db = firebase.firestore()
 Vue.use(Vuex)
 
 export const store = new Vuex.Store({
+
   state: {
       lists: [],
       tasks: [],
       activeList: {},
-      activeTask: {}
+      activeTask: {},
+      siteNotification: {
+        active: false,
+        message: null
+      }
     },
     getters: {
         lists: state => state.lists,
         tasks: state => state.tasks,
         activeList: state => state.activeList,
-        activeTask: state => state.activeTask
+        activeTask: state => state.activeTask,
+        siteNotification: state => state.siteNotification
     },
     mutations: {
+      siteNotification(state, payload){
+          payload !== null
+          ? setTimeout(() => ({active: state.siteNotification.active = true , message: state.siteNotification.message = payload}), 750)
+          : setTimeout(() => ({active: state.siteNotification.active = true , message: state.siteNotification.message = 'Untitled Deleted'}), 750)
+      },
       loadList(state, payload) {
           state.lists = []
           state.lists = payload
@@ -102,9 +115,13 @@ export const store = new Vuex.Store({
           description: null
         })
         .then((docRef) => {
-          db.collection('lists').doc(docRef.id).update({
-            id: docRef.id
-          })
+          return {
+            updateID: db.collection('lists').doc(docRef.id).update({
+              id: docRef.id
+            }),
+            changeRoute: router.push('/create-list/' + docRef.id)
+          }
+
         })
       },
       ADD_TASK(context, payload) {
@@ -142,6 +159,19 @@ export const store = new Vuex.Store({
         // const createdAt = new Date()
         db.collection("tasks").doc(payload.id).set(payload, {merge: true})
       },
+
+      DELETE_LIST(context, payload) {
+        // const createdAt = new Date()
+        const messagePayload = payload.title + ' Deleted'
+        return {
+          delete: db.collection("lists").doc(payload.id).delete(),
+          route: router.push('/'),
+          notification: context.commit('siteNotification', messagePayload)
+        }
+      },
+
     }
 });
+
+
 

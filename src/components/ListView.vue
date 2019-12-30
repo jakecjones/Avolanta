@@ -58,11 +58,7 @@ export default {
   methods: {
 
     createList() {
-      return {
-        createList: this.$store.dispatch('ADD_LIST'),
-        changeRoute: this.$router.push('/create-list')
-      }
-      
+      this.$store.dispatch('ADD_LIST')
     },
     addList(listTitle){
 
