@@ -52,8 +52,8 @@ export const store = new Vuex.Store({
             context.commit('loadList', payload)
         });
       },
-      LOAD_TASKS(context) {
-        db.collection("tasks")
+      LOAD_TASKS(context, payload) {
+        db.collection("tasks").where("lid", "==", payload)
         .onSnapshot(function(querySnapshot) {
           const payload = []
             querySnapshot.forEach(function(doc) {
@@ -80,7 +80,6 @@ export const store = new Vuex.Store({
         .then((docRef) => {
           context.commit('activeList', docRef.data())
         })
-
       },
       ADD_LIST(context) {
         context;
@@ -96,10 +95,40 @@ export const store = new Vuex.Store({
           })
         })
       },
+      ADD_TASK(context, payload) {
+        context;
+        const createdAt = new Date()
+        db.collection("tasks").add({
+          createdAt: createdAt,
+          title: null,
+          description: null,
+          lid: payload,
+          status: 'open'
+        })
+        .then((docRef) => {
+          db.collection('tasks').doc(docRef.id).update({
+            id: docRef.id
+          })
+        })
+      },
+      UPDATE_TASK(context, payload) {
+        // const createdAt = new Date()
+        payload.status == 'open'
+        ? db.collection("tasks").doc(payload.id).update({
+          status: 'complete'
+        })
+        : db.collection("tasks").doc(payload.id).update({
+          status: 'open'
+        })
+
+      },
       SAVE_LIST(context, payload) {
         // const createdAt = new Date()
         db.collection("lists").doc(payload.id).set(payload, {merge: true})
-
+      },
+      SAVE_TASK(context, payload) {
+        // const createdAt = new Date()
+        db.collection("tasks").doc(payload.id).set(payload, {merge: true})
       },
     }
 });

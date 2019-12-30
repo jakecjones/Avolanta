@@ -7,13 +7,13 @@
             </div>
           </div>
           <div class="controls">
-            <input class="controls__title" v-model="activeList.title" @keydown="saveList()" placeholder="List Title">
-            <div class="controls__action">
+            <input class="controls__title" v-model="activeList.title" @keyup="saveList()" placeholder="List Title">
+            <div @click="createTask()" class="controls__action">
               <img src="../../static/plus.svg" alt="">
             </div>
           </div>
           <div class="controls">
-            <textarea @keydown="saveList()" cols="30" rows="2" placeholder="Description" v-model="activeList.description"></textarea>
+            <textarea @keyup="saveList()" cols="30" rows="2" placeholder="Description" v-model="activeList.description"></textarea>
           </div>
           <div class="controls">
             <div class="controls__sub-title">Tasks</div>
@@ -22,8 +22,12 @@
             <div class="tasks">
               <div v-for="(display, idx) in tasks" :key="idx" class="controls__task-list">
                 <div v-if="tasks.length != idx + 1" class="controls__task-border"></div>
-                <div class="controls__task-checked"></div>
-                <input class="task-input" type="text" v-model="display.title">
+                <div @click="updateTask(display)" v-if="display.status == 'open'" class="controls__task-checked"></div>
+                <div @click="updateTask(display)" v-else class="controls__task-checked-active">
+                  <img src="../../static/checkmark.svg">
+                </div>
+
+                <input @keyup="saveTask(display)" class="task-input" type="text" v-model="display.title" placeholder="task name">
               </div>
             </div>
           </div>
@@ -57,29 +61,32 @@ export default {
   methods: {
 
     saveList(){
-
-      // const payload = {
-      //   title: listTitle
-      // }
-      setTimeout(this.autosave, 5000)
-
-      // this.$store.dispatch('ADD_LIST', payload)
+      setTimeout(this.autosaveList, 3000)
     },
-    autosave(){
+    saveTask(payload){
+      setTimeout(this.autosaveTask(payload), 3000)
+    },
+    autosaveList(){
       this.$store.dispatch('SAVE_LIST', this.activeList)
+    },
+    autosaveTask(payload){
+      this.$store.dispatch('SAVE_TASK', payload)
+    },
+    updateTask(payload, key){
+      this.$store.dispatch('UPDATE_TASK', payload, key)
+    },
+    createTask(){
+      this.$store.dispatch('ADD_TASK', this.activeList.id)
+    },
+    changeStatus(){
+      this.$store.dispatch('ADD_TASK', this.activeList.id)
     }
-    // saveList(){
-    //   this.$store.dispatch('SAVE_LIST', payload)
-    // }
-
   },
   created() {
     let path = this.$route.path.split('/create-list/')[1]
-    // path != 'null'
-    // ? this.listTitle = path
-    // : this.listTitle = 'Untitled'
     this.$store.dispatch('FETCH_LIST', path)
     this.listTitle = path
+    this.$store.dispatch('LOAD_TASKS', path)
   }
 }
 </script>

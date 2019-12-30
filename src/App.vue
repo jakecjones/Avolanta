@@ -89,7 +89,6 @@ export default {
       this.$route.path == '/'
       ? this.hideIcon = false
       : this.hideIcon = true
-
     }
   },
   components: {
@@ -98,7 +97,6 @@ export default {
   methods: {
     getLists(){
       this.$store.dispatch('LOAD_LISTS')
-      this.$store.dispatch('LOAD_TASKS')
     }
   },
   created() {
@@ -253,6 +251,13 @@ $darkColor: #373542;
     background-color: #fff;
     background-color: #b5e3c8;
     border: .09rem solid #b5e3c8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+      width: 80%;
+      height: 80%;
+    }
   } 
 
   textarea {
