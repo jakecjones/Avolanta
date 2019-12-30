@@ -19,12 +19,14 @@ export const store = new Vuex.Store({
   state: {
       lists: [],
       tasks: [],
-      activeList: {}
+      activeList: {},
+      activeTask: {}
     },
     getters: {
         lists: state => state.lists,
         tasks: state => state.tasks,
-        activeList: state => state.activeList
+        activeList: state => state.activeList,
+        activeTask: state => state.activeTask
     },
     mutations: {
       loadList(state, payload) {
@@ -38,7 +40,11 @@ export const store = new Vuex.Store({
       activeList(state, payload) {
         state.activeList = {}
         state.activeList = payload
-    }
+    },
+      activeTask(state, payload) {
+        state.activeTask = {}
+        state.activeTask = payload
+      }
     },
     actions: {
       LOAD_LISTS(context) {
@@ -53,7 +59,7 @@ export const store = new Vuex.Store({
         });
       },
       LOAD_TASKS(context, payload) {
-        db.collection("tasks").where("lid", "==", payload)
+        db.collection("tasks").where("lid", "==", payload).orderBy('createdAt')
         .onSnapshot(function(querySnapshot) {
           const payload = []
             querySnapshot.forEach(function(doc) {
@@ -79,6 +85,12 @@ export const store = new Vuex.Store({
         db.collection("lists").doc(payload).get()
         .then((docRef) => {
           context.commit('activeList', docRef.data())
+        })
+      },
+      FETCH_TASK(context, payload) {
+        db.collection("tasks").doc(payload).get()
+        .then((docRef) => {
+          context.commit('activeTask', docRef.data())
         })
       },
       ADD_LIST(context) {

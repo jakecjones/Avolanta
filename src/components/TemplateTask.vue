@@ -2,9 +2,46 @@
     <section class="list-view">
       <div class="container">
           <div class="controls">
-            <div class="controls__title">{{listTitle}}</div>
-            <div class="controls__action">
-              <img src="../../static/plus.svg" alt="">
+            <div @click="$router.go(-1)" class="controls__action">
+              <img src="../../static/back-arrow.svg" alt="">
+            </div>
+          </div>
+          <div class="controls">
+            <input class="controls__title" v-model="activeTask.title" @keyup="saveTask()" placeholder="List Title">
+
+            <div v-if="activeTask.status == 'open'" @click="updateTask(activeTask); activeTask.status = 'completed'" class="controls__action">
+                <div class="controls__task-checked"></div>
+            </div>
+
+            <div @click="updateTask(activeTask); activeTask.status = 'open'" v-else class="controls__action">
+              <div class="controls__task-checked-active">
+                <img src="../../static/checkmark.svg">
+              </div>
+            </div>
+
+          </div>
+          <div class="controls">
+            <textarea @keyup="saveTask()" cols="30" rows="2" placeholder="Description" v-model="activeTask.description"></textarea>
+          </div>
+          <div class="controls">
+            <div class="controls__sub-title">History</div>
+          </div>
+          <div class="controls">
+            <div class="tasks">
+              <!-- <div v-for="(display, idx) in tasks" :key="idx" class="controls__task-list">
+                <div v-if="tasks.length != idx + 1" class="controls__task-border"></div>
+                <div @click="updateTask(display)" v-if="display.status == 'open'" class="controls__task-checked"></div>
+
+                <div @click="updateTask(display)" v-else class="controls__task-checked-active">
+                  <img src="../../static/checkmark.svg">
+                </div>
+
+                <input @keyup="saveTask(display)" @keydown.enter="createTask(idx)" class="task-input" type="text" v-model="display.title" :ref="idx" placeholder="task name">
+
+                <div class="controls__more" @click="$router.push('/task/' + display.id)">
+                  <img src="../../static/more.svg">
+                </div>
+              </div> -->
             </div>
           </div>
       </div>
@@ -19,7 +56,8 @@ export default {
   name: 'list-view',
   data () {
     return {
-      listTitle: null
+      listTitle: null,
+      listDescription: null
     }
   },
   components: {
@@ -29,31 +67,79 @@ export default {
     ...mapGetters([
       'lists',
       'tasks',
-      'test'
+      'test',
+      'activeList',
+      'activeTask',
     ])
   },
   methods: {
 
-    addList(listTitle){
-
-      const payload = {
-        title: listTitle
-      }
-
-      this.$store.dispatch('ADD_LIST', payload)
+    saveList(){
+      setTimeout(this.autosaveList, 3000)
+    },
+    saveTask(){
+      setTimeout(this.autosaveTask, 3000)
+    },
+    autosaveList(){
+      this.$store.dispatch('SAVE_LIST', this.activeList)
+    },
+    autosaveTask(){
+      this.$store.dispatch('SAVE_TASK', this.activeTask)
+    },
+    updateTask(payload, key){
+      this.$store.dispatch('UPDATE_TASK', payload, key)
+    },
+    createTask(){
+      this.$store.dispatch('ADD_TASK', this.activeList.id)
+      this.$refs.search.focus()
+    },
+    changeStatus(){
+      this.$store.dispatch('ADD_TASK', this.activeList.id)
     }
-
   },
   created() {
-    this.listTitle = this.$route.path.split('/create-list/')[1]
+    let path = this.$route.path.split('/task/')[1]
+    this.$store.dispatch('FETCH_TASK', path)
+    // this.$store.dispatch('LOAD_TASKS', path)
   }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
 .list-view {
   width: 100%;
+
+.controls {
+  &__task-checked {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0 !important;
+    background-color: #fff;
+    border: .09rem dashed #b5e3c8;
+  } 
+  &__task-checked-active {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0 !important;
+    background-color: #fff;
+    background-color: #b5e3c8;
+    border: .09rem solid #b5e3c8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+      width: 80%;
+      height: 80%;
+    }
+  } 
+}
 
 &__add {
   width: 150px;
@@ -99,6 +185,9 @@ export default {
   justify-content: center;
   align-items: center;
   border-radius: 20px;
+}
+
+textarea {
 }
 
 // &__list-title {

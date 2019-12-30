@@ -181,6 +181,7 @@ $darkColor: #373542;
   width: 90%;
   display: flex;
   margin-bottom: 20px;
+  position: relative;
 
   &__title {
     width: 90%;
@@ -207,6 +208,7 @@ $darkColor: #373542;
     display: flex;
     align-items: center;
     justify-content:baseline;
+    position: relative;
     img {
       width: 100%;
     }
@@ -216,7 +218,7 @@ $darkColor: #373542;
     width: 100%;
   }
   &__task-list {
-    width: calc(75vw - 15px);
+    width: calc(69vw - 15px);
     padding: 0 1vw 6vw 25px;
     // background-color: red;
     position: relative;
@@ -232,22 +234,22 @@ $darkColor: #373542;
     border-left: .09rem solid #b5e3c8;
   } 
   &__task-checked {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     position: absolute;
     top: 0;
-    left: -12px;
+    left: -14px;
     background-color: #fff;
     border: .09rem dashed #b5e3c8;
   } 
   &__task-checked-active {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     position: absolute;
     top: 0;
-    left: -12px;
+    left: -14px;
     background-color: #fff;
     background-color: #b5e3c8;
     border: .09rem solid #b5e3c8;
@@ -258,6 +260,14 @@ $darkColor: #373542;
       width: 80%;
       height: 80%;
     }
+  } 
+  &__more{
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    top: 0;
+    right: 0;
+
   } 
 
   textarea {
@@ -284,7 +294,13 @@ $darkColor: #373542;
 input {
   border: none;
   outline: none;
+  
   // padding: 4vw 2vw;
+}
+.task-input {
+  font-size: 18px;
+  font-family: 'ProximaNova-Thin', 'Avenir', sans-serif;
+
 }
 .home-input {
   width: 80%;
@@ -294,5 +310,6 @@ input {
   text-align: center;
   font-size: 5vw;
   margin: 30px auto;
+  padding: 4vw 2vw; 
 }
 </style>
