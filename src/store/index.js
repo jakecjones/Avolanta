@@ -181,7 +181,7 @@ export const store = new Vuex.Store({
       },
       DELETE_TASK(context, payload) {
         // const createdAt = new Date()
-        const messagePayload = payload.title + ' deleted'
+        const messagePayload = payload.title
         return {
           delete: db.collection("tasks").doc(payload.id).delete(),
           route: router.push('/list/' + payload.lid),

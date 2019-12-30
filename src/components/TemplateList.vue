@@ -20,21 +20,25 @@
           </div>
           <div class="controls">
             <div class="tasks">
+                <template v-if="tasks.length == 0">
+                  <span @click="createTask()" class="trigger">add new task <img src="../../static/plus.svg"></span>
+                  
+                </template>
               <div v-for="(display, idx) in tasks" :key="idx" class="controls__task-list">
-                <div v-if="tasks.length != idx + 1" class="controls__task-border"></div>
-                <div @click="updateTask(display)" v-if="display.status == 'open'" class="controls__task-checked">
-                  <img src="../../static/checkmark-color.svg">
-                </div>
+                  <div v-if="tasks.length != idx + 1" class="controls__task-border"></div>
+                  <div @click="updateTask(display)" v-if="display.status == 'open'" class="controls__task-checked">
+                    <img src="../../static/checkmark-color.svg">
+                  </div>
 
-                <div @click="updateTask(display)" v-else class="controls__task-checked-active">
-                  <img src="../../static/checkmark.svg">
-                </div>
+                  <div @click="updateTask(display)" v-else class="controls__task-checked-active">
+                    <img src="../../static/checkmark.svg">
+                  </div>
 
-                <input @keyup="saveTask(display)" @keydown.enter="createTask(idx)" class="task-input" type="text" v-model="display.title" :ref="idx" placeholder="task name">
+                  <input @keyup="saveTask(display)" @keydown.enter="createTask(idx)" class="task-input" type="text" v-model="display.title" :ref="idx" placeholder="task name">
 
-                <div class="controls__more" @click="$router.push('/task/' + display.id)">
-                  <img src="../../static/more.svg">
-                </div>
+                  <div class="controls__more" @click="$router.push('/task/' + display.id)">
+                    <img src="../../static/more.svg">
+                  </div>
               </div>
             </div>
           </div>

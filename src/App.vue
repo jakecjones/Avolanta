@@ -223,6 +223,23 @@ $darkColor: #373542;
   height: 8vw;
 }
 
+.trigger {
+  background-color: #fae9e8;
+  color: #e8908a;
+  border-radius: 50px;
+  font-family: 'ProximaNova-Bold', 'Avenir', sans-serif;
+  padding: 1vw 35px 1vw 4vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  img {
+    width: 15px;
+    position: absolute;
+    right: 10px;
+  }
+}
+
 .options {
   width: 80%;
   height: auto;
