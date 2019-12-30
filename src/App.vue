@@ -237,23 +237,26 @@ $darkColor: #373542;
     width: 15px;
     position: absolute;
     right: 10px;
+    top: 50%;
+    margin-top: -7.5px;
   }
 }
 
 .options {
-  width: 80%;
+  width: 90%;
   height: auto;
   padding: 6vw 0;
   margin: 0 auto;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: left;
   &__action {
     width: 25px;
     height: 25px;
     position: absolute;
     bottom: 20px;
-    right: 0;
-
-
+    right: 5%;
 
     border-radius: 50%;
     position: absolute;
@@ -268,6 +271,28 @@ $darkColor: #373542;
       width: 75%;
     }
   }
+  span {
+    color: #3EC196;
+    font-family: 'ProximaNova-Bold', 'Avenir', sans-serif;
+  }
+  &__icon {
+    width: 25px;
+    height: 25px;
+
+    border-radius: 50%;
+    background-color: #fff;
+    border: .09rem dashed #b5e3c8;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 7vw 0 3vw;
+
+    img { 
+      width: 75%;
+    }
+  }
+
 }
 
 .controls {

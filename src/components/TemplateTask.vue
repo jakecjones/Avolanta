@@ -22,9 +22,22 @@
             </div>
 
           </div>
+
           <div v-if="activeTask.status == 'complete'" class="controls">
             <span class="completed">completed</span>
           </div>
+          
+          <section class="options">
+            <span>Priority</span>
+            <div @click="deleteTask()" class="options__icon">
+              <img src="../../static/priority.svg">
+            </div>   
+            <span>Due Date</span>   
+            <div @click="deleteTask()" class="options__icon">
+              <img src="../../static/date.svg">
+            </div> 
+          </section>
+
           <div class="controls">
             <textarea @keyup="saveTask()" cols="30" rows="2" placeholder="Description" v-model="activeTask.description"></textarea>
           </div>
