@@ -54,6 +54,9 @@ export const store = new Vuex.Store({
         state.tasks = []
         state.tasks = payload
     },
+    datePicker(state) {
+      state.datePicker = !state.datePicker
+    },
       activeList(state, payload) {
         state.activeList = {}
         state.activeList = payload
@@ -137,7 +140,8 @@ export const store = new Vuex.Store({
           description: null,
           lid: payload,
           status: 'open',
-          priority: null
+          priority: null,
+          dueDate: null
         })
         .then((docRef) => {
           db.collection('tasks').doc(docRef.id).update({
@@ -189,6 +193,14 @@ export const store = new Vuex.Store({
           delete: db.collection("tasks").doc(payload.id).delete(),
           route: router.push('/list/' + payload.lid),
           notification: context.commit('siteNotification', messagePayload)
+        }
+      },
+      CHOOSE_DATE(context, payload) {
+        return {
+          delete: db.collection("tasks").doc(payload.id).set({
+            dueDate: `${payload.month} ${payload.day}`
+          }, {merge: true}),
+          dueDate: context.commit('datePicker')
         }
       },
 

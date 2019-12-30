@@ -3,7 +3,7 @@
       <div class="container">
           <div class="controls">
             <div @click="$router.go(-1)" class="controls__action">
-              <img src="../../static/back-arrow.svg" alt="">
+              <img src="../../static/back-arrow.svg">
             </div>
           </div>
           <div class="controls">
@@ -40,11 +40,14 @@
                 <div @click="activeTask.priority = 'medium'" class="tool tools-medium">Medium</div>
                 <div @click="activeTask.priority = 'high'" class="tool tools-high">High</div>
               </div>
-            </div>   
-            <span>Due Date</span>   
-            <div class="options__icon">
-              <img src="../../static/date.svg">
             </div> 
+            <!-- <div @click="getDatePicker()"> -->
+              <span @click="getDatePicker()">Due Date</span>   
+              <div v-if="activeTask.dueDate == null" @click="getDatePicker()" class="options__icon">
+                <img src="../../static/date.svg">
+              </div> 
+              <span v-else class="spacer due-date">{{activeTask.dueDate.split(' ')[0].substring(0, 3)}} {{activeTask.dueDate.split(' ')[1]}}</span>
+            <!-- </div>  -->
           </section>
 
           <div class="controls">
@@ -56,18 +59,20 @@
           <img src="../../static/trash.svg">
         </div>      
       </section>
-      <section class="datepicker">
+      <section class="datepicker" :class="{'datepicker-active' : datePicker}">
 
-        <div class="datepicker__title">{{months[new Date().getMonth()]}}</div>
-        <!-- {{new Date().getDaysInMonth()}} -->
-        <div class="datepicker__calender">
-          <div v-for="(display, idx) in week" class="datepicker__week" :key="idx">{{display}}</div>
-        </div>
-        <div class="datepicker__calender">
+        <div class="datepicker-absolute">
+          <div class="datepicker__title">{{months[new Date().getMonth()]}}</div>
+          <!-- {{new Date().getDaysInMonth()}} -->
+          <div class="datepicker__calender">
+            <div v-for="(display, idx) in week" class="datepicker__week" :key="idx">{{display}}</div>
+          </div>
+          <div class="datepicker__calender">
 
-          <div @click="activeDay = idx" v-for="(display, idx) in days" class="datepicker__day" :key="idx">
-            <span v-if="activeDay == idx" class="active-day">{{idx + 1}}</span>
-            <span v-else >{{idx + 1}}</span>
+            <div @click="chooseDate(display, idx)" v-for="(display, idx) in days" class="datepicker__day" :key="idx">
+              <span v-if="activeDay == idx" class="active-day">{{idx + 1}}</span>
+              <span v-else >{{idx + 1}}</span>
+            </div>
           </div>
         </div>
 
@@ -121,7 +126,7 @@ export default {
       'test',
       'activeList',
       'activeTask',
-      'datePicker'
+      'datePicker',
     ])
   },
   methods: {
@@ -150,6 +155,19 @@ export default {
     deleteTask(){
       this.$store.dispatch('DELETE_TASK', this.activeTask)
     },
+    getDatePicker(){
+      this.$store.commit('datePicker')
+    },
+    chooseDate(display, idx){
+      this.activeDay = idx
+
+      const payload = {
+        day: idx + 1,
+        month: this.months[new Date().getMonth()],
+        id: this.$route.path.split('/task/')[1]
+      }
+      this.$store.dispatch('CHOOSE_DATE', payload)
+    }
   },
   created() {
     let path = this.$route.path.split('/task/')[1]
@@ -170,19 +188,34 @@ export default {
   justify-content: center;
   border-radius: 10px;
 }
+.due-date {
+  font-size: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: lighter;
+  font-family: 'ProximaNova-Thin', 'Avenir', sans-serif;
+  position: relative;
+  margin-top: 2px;
+}
 .datepicker {
   position: fixed;
   bottom: 0;
-  height: 70%;
+  height: 0;
+  overflow: hidden;
   width: 101%;
   background-color: #3ec196;
   left: 0;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
   flex-direction: column;
+  transition: all .5s cubic-bezier(0.86, 0, 0.07, 1);
+
+  .datepicker-absolute {
+    position: absolute;
+    top: 20px;
+  }
 
   &__calender {
     width: 90%;
@@ -222,8 +255,14 @@ export default {
     font-weight: bolder;
     font-family: 'ProximaNova-Bold', 'Avenir', sans-serif;
     color: #fff;
+    margin: 0 auto;
+
 
   }
+}
+
+.datepicker-active {
+  height: 70%;
 }
 
 .list-view {
