@@ -56,6 +56,18 @@
           <img src="../../static/trash.svg">
         </div>      
       </section>
+      <section class="datepicker">
+
+        <div class="datepicker__title">{{months[new Date().getMonth()]}}</div>
+        <!-- {{new Date().getDaysInMonth()}} -->
+        <div class="datepicker__calender">
+          <div v-for="(display, idx) in week" class="datepicker__week" :key="idx">{{display}}</div>
+        </div>
+        <div class="datepicker__calender">
+          <div v-for="(display, idx) in days" class="datepicker__day" :key="idx">{{idx + 1}}</div>
+        </div>
+
+      </section>
     </section>
 </template>
 
@@ -67,7 +79,31 @@ export default {
   name: 'list-view',
   data () {
     return {
-      toolsActive: false
+      toolsActive: false,
+      days: 31,
+      week: {
+      0: "SUN",
+      1: "MON",
+      2: "TUE",
+      3: "WED",
+      4: "THR",
+      5: "FRI",
+      6: "SAT"
+      },
+      months: {
+      0: "January",
+      1: "February",
+      2: "March",
+      3: "April",
+      4: "May",
+      5: "June",
+      6: "July",
+      7: "August",
+      8: "September",
+      9: "October",
+      10: "November",
+      11: "December"
+      }
     }
   },
   components: {
@@ -80,6 +116,7 @@ export default {
       'test',
       'activeList',
       'activeTask',
+      'datePicker'
     ])
   },
   methods: {
@@ -117,6 +154,62 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.datepicker {
+  position: fixed;
+  bottom: 0;
+  height: 70%;
+  width: 101%;
+  background-color: #3ec196;
+  left: 0;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  &__calender {
+    width: 90%;
+    height: auto;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: wrap;
+    color: #fff;
+  }
+  &__day {
+    width: 12.8vw;
+    height: 12.8vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'ProximaNova-Thin', 'Avenir', sans-serif;
+  }
+
+  &__week {
+    width: 12.8vw;
+    height: 12.8vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'ProximaNova-Bold', 'Avenir', sans-serif;
+    font-weight: bolder;
+    font-size: 10px;
+    color: #b5e3c8;
+  }
+  &__title {
+    width: 85%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    font-size: 18px;
+    padding: 4vw 0 2vw 0;
+    font-weight: bolder;
+    font-family: 'ProximaNova-Bold', 'Avenir', sans-serif;
+    color: #fff;
+
+  }
+}
 
 .list-view {
   width: 100%;

@@ -24,6 +24,7 @@ export const store = new Vuex.Store({
       tasks: [],
       activeList: {},
       activeTask: {},
+      datePicker: false,
       siteNotification: {
         active: false,
         message: null
@@ -34,6 +35,7 @@ export const store = new Vuex.Store({
         tasks: state => state.tasks,
         activeList: state => state.activeList,
         activeTask: state => state.activeTask,
+        datePicker: state => state.datePicker,
         siteNotification: state => state.siteNotification
     },
     mutations: {
