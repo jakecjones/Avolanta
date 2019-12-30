@@ -64,7 +64,11 @@
           <div v-for="(display, idx) in week" class="datepicker__week" :key="idx">{{display}}</div>
         </div>
         <div class="datepicker__calender">
-          <div v-for="(display, idx) in days" class="datepicker__day" :key="idx">{{idx + 1}}</div>
+
+          <div @click="activeDay = idx" v-for="(display, idx) in days" class="datepicker__day" :key="idx">
+            <span v-if="activeDay == idx" class="active-day">{{idx + 1}}</span>
+            <span v-else >{{idx + 1}}</span>
+          </div>
         </div>
 
       </section>
@@ -80,6 +84,7 @@ export default {
   data () {
     return {
       toolsActive: false,
+      activeDay: null,
       days: 31,
       week: {
       0: "SUN",
@@ -155,6 +160,16 @@ export default {
 
 <style lang="scss" scoped>
 
+.active-day {
+  background-color: #fff;
+  color: #3ec196;
+  width: 100%;
+  height: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+}
 .datepicker {
   position: fixed;
   bottom: 0;
