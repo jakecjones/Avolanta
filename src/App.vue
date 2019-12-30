@@ -319,6 +319,13 @@ $darkColor: #373542;
     left: -14px;
     background-color: #fff;
     border: .09rem dashed #b5e3c8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+      width: 50%;
+      height: 50%;
+    }
   } 
   &__task-checked-active {
     width: 24px;

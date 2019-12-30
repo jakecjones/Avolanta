@@ -10,7 +10,9 @@
             <input class="controls__title" v-model="activeTask.title" @keyup="saveTask()" placeholder="List Title">
 
             <div v-if="activeTask.status == 'open'" @click="updateTask(activeTask); activeTask.status = 'completed'" class="controls__action">
-                <div class="controls__task-checked"></div>
+                <div class="controls__task-checked">
+                  <img src="../../static/checkmark-color.svg">
+                </div>
             </div>
 
             <div @click="updateTask(activeTask); activeTask.status = 'open'" v-else class="controls__action">
