@@ -7,13 +7,13 @@
             </div>
           </div>
           <div class="controls">
-            <input class="controls__title" v-model="listTitle" @keydown="saveList()" placeholder="List Title">
+            <input class="controls__title" v-model="activeList.title" @keydown="saveList()" placeholder="List Title">
             <div class="controls__action">
               <img src="../../static/plus.svg" alt="">
             </div>
           </div>
           <div class="controls">
-            <textarea @keydown="saveList()" cols="30" rows="2" placeholder="Description" v-model="listDescription"></textarea>
+            <textarea @keydown="saveList()" cols="30" rows="2" placeholder="Description" v-model="activeList.description"></textarea>
           </div>
           <div class="controls">
             <div class="controls__sub-title">Tasks</div>
@@ -50,27 +50,23 @@ export default {
     ...mapGetters([
       'lists',
       'tasks',
-      'test'
+      'test',
+      'activeList',
     ])
   },
   methods: {
 
     saveList(){
 
-      const payload = {
-        title: this.listTitle,
-        description: this.listDescription
-      }
-
       // const payload = {
       //   title: listTitle
       // }
-      setTimeout(this.autosave(payload), 1000)
+      setTimeout(this.autosave, 5000)
 
       // this.$store.dispatch('ADD_LIST', payload)
     },
-    autosave(payload){
-      this.$store.dispatch('SAVE_LIST', payload)
+    autosave(){
+      this.$store.dispatch('SAVE_LIST', this.activeList)
     }
     // saveList(){
     //   this.$store.dispatch('SAVE_LIST', payload)
@@ -79,10 +75,11 @@ export default {
   },
   created() {
     let path = this.$route.path.split('/create-list/')[1]
-    path != 'null'
-    ? this.listTitle = path
-    : this.listTitle = 'Untitled'
-
+    // path != 'null'
+    // ? this.listTitle = path
+    // : this.listTitle = 'Untitled'
+    this.$store.dispatch('FETCH_LIST', path)
+    this.listTitle = path
   }
 }
 </script>

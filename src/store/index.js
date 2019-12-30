@@ -19,10 +19,12 @@ export const store = new Vuex.Store({
   state: {
       lists: [],
       tasks: [],
+      activeList: {}
     },
     getters: {
         lists: state => state.lists,
-        tasks: state => state.tasks
+        tasks: state => state.tasks,
+        activeList: state => state.activeList
     },
     mutations: {
       loadList(state, payload) {
@@ -32,6 +34,10 @@ export const store = new Vuex.Store({
       loadTask(state, payload) {
         state.tasks = []
         state.tasks = payload
+    },
+      activeList(state, payload) {
+        state.activeList = {}
+        state.activeList = payload
     }
     },
     actions: {
@@ -56,11 +62,12 @@ export const store = new Vuex.Store({
             context.commit('loadTask', payload)
         });
       },
-      FIRS_LIST(context, payload) {
+      FIRST_LIST(context, payload) {
         const createdAt = new Date()
         db.collection("lists").add({
           createdAt: createdAt,
-          title: payload.title
+          title: payload.title,
+          description: null
         })
         .then((docRef) => {
           db.collection('lists').doc(docRef.id).update({
@@ -68,12 +75,20 @@ export const store = new Vuex.Store({
           })
         })
       },
+      FETCH_LIST(context, payload) {
+        db.collection("lists").doc(payload).get()
+        .then((docRef) => {
+          context.commit('activeList', docRef.data())
+        })
+
+      },
       ADD_LIST(context) {
         context;
         const createdAt = new Date()
         db.collection("lists").add({
           createdAt: createdAt,
-          title: null
+          title: null,
+          description: null
         })
         .then((docRef) => {
           db.collection('lists').doc(docRef.id).update({
