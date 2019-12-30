@@ -2,7 +2,7 @@
     <section class="list-view">
       <div class="container">
           <div class="controls">
-            <div class="controls__action">
+            <div @click="$router.go(-1)" class="controls__action">
               <img src="../../static/back-arrow.svg" alt="">
             </div>
           </div>
