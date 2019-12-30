@@ -28,7 +28,11 @@ export const store = new Vuex.Store({
       loadList(state, payload) {
           state.lists = []
           state.lists = payload
-      }
+      },
+      loadTask(state, payload) {
+        state.tasks = []
+        state.tasks = payload
+    }
     },
     actions: {
       LOAD_LISTS(context) {
@@ -42,9 +46,46 @@ export const store = new Vuex.Store({
             context.commit('loadList', payload)
         });
       },
-      ADD_LIST(context, payload) {
-        db.collection("lists").add(payload)
-      }
+      LOAD_TASKS(context) {
+        db.collection("tasks")
+        .onSnapshot(function(querySnapshot) {
+          const payload = []
+            querySnapshot.forEach(function(doc) {
+              payload.push(doc.data())
+            });
+            context.commit('loadTask', payload)
+        });
+      },
+      FIRS_LIST(context, payload) {
+        const createdAt = new Date()
+        db.collection("lists").add({
+          createdAt: createdAt,
+          title: payload.title
+        })
+        .then((docRef) => {
+          db.collection('lists').doc(docRef.id).update({
+            id: docRef.id
+          })
+        })
+      },
+      ADD_LIST(context) {
+        context;
+        const createdAt = new Date()
+        db.collection("lists").add({
+          createdAt: createdAt,
+          title: null
+        })
+        .then((docRef) => {
+          db.collection('lists').doc(docRef.id).update({
+            id: docRef.id
+          })
+        })
+      },
+      SAVE_LIST(context, payload) {
+        // const createdAt = new Date()
+        db.collection("lists").doc(payload.id).set(payload, {merge: true})
+
+      },
     }
 });
 

@@ -7,13 +7,25 @@
             </div>
           </div>
           <div class="controls">
-            <input class="controls__title" v-model="listTitle" placeholder="List Title">
+            <input class="controls__title" v-model="listTitle" @keydown="saveList()" placeholder="List Title">
             <div class="controls__action">
               <img src="../../static/plus.svg" alt="">
             </div>
           </div>
           <div class="controls">
-            <textarea cols="30" rows="10" placeholder="Description"></textarea>
+            <textarea @keydown="saveList()" cols="30" rows="2" placeholder="Description" v-model="listDescription"></textarea>
+          </div>
+          <div class="controls">
+            <div class="controls__sub-title">Tasks</div>
+          </div>
+          <div class="controls">
+            <div class="tasks">
+              <div v-for="(display, idx) in tasks" :key="idx" class="controls__task-list">
+                <div v-if="tasks.length != idx + 1" class="controls__task-border"></div>
+                <div class="controls__task-checked"></div>
+                <input class="task-input" type="text" v-model="display.title">
+              </div>
+            </div>
           </div>
       </div>
     </section>
@@ -27,7 +39,8 @@ export default {
   name: 'list-view',
   data () {
     return {
-      listTitle: null
+      listTitle: null,
+      listDescription: null
     }
   },
   components: {
@@ -42,18 +55,34 @@ export default {
   },
   methods: {
 
-    addList(listTitle){
+    saveList(){
 
       const payload = {
-        title: listTitle
+        title: this.listTitle,
+        description: this.listDescription
       }
 
-      this.$store.dispatch('ADD_LIST', payload)
+      // const payload = {
+      //   title: listTitle
+      // }
+      setTimeout(this.autosave(payload), 1000)
+
+      // this.$store.dispatch('ADD_LIST', payload)
+    },
+    autosave(payload){
+      this.$store.dispatch('SAVE_LIST', payload)
     }
+    // saveList(){
+    //   this.$store.dispatch('SAVE_LIST', payload)
+    // }
 
   },
   created() {
-    this.listTitle = this.$route.path.split('/create-list/')[1]
+    let path = this.$route.path.split('/create-list/')[1]
+    path != 'null'
+    ? this.listTitle = path
+    : this.listTitle = 'Untitled'
+
   }
 }
 </script>

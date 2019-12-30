@@ -98,6 +98,7 @@ export default {
   methods: {
     getLists(){
       this.$store.dispatch('LOAD_LISTS')
+      this.$store.dispatch('LOAD_TASKS')
     }
   },
   created() {
@@ -193,6 +194,16 @@ $darkColor: #373542;
       color: $darkColor;
     }
   }
+  &__sub-title {
+    width: 90%;
+    font-weight: bolder;
+    font-size: 4.5vw;
+    font-family: 'ProximaNova-Bold', 'Avenir', sans-serif;
+    color: $darkColor;
+    &::placeholder {
+      color: $darkColor;
+    }
+  }
   &__action {
     width: 10%;
     display: flex;
@@ -202,6 +213,48 @@ $darkColor: #373542;
       width: 100%;
     }
   }
+
+  &__tasks {
+    width: 100%;
+  }
+  &__task-list {
+    width: calc(75vw - 15px);
+    padding: 0 1vw 6vw 25px;
+    // background-color: red;
+    position: relative;
+    // border-left: 1px solid #b5e3c8;
+    margin-left: 15px;
+  }
+  &__task-border {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    left: -1px;
+    background-color: #fff;
+    border-left: .09rem solid #b5e3c8;
+  } 
+  &__task-checked {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: -12px;
+    background-color: #fff;
+    border: .09rem dashed #b5e3c8;
+  } 
+  &__task-checked-active {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: -12px;
+    background-color: #fff;
+    background-color: #b5e3c8;
+    border: .09rem solid #b5e3c8;
+  } 
+
   textarea {
     width: 100%;
     border: none;

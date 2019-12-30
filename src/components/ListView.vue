@@ -1,7 +1,7 @@
 <template>
     <section class="list-view">
       <div class="container">
-        <template v-if="lists.length < 0">
+        <template v-if="lists.length == 0">
           Create your first list
           <input class="home-input" type="text" placeholder="list name" v-model="listTitle">
           <button @click="addList(listTitle)" class="list-view__add">add list</button>
@@ -9,16 +9,24 @@
         <template v-else>
           <div class="controls">
             <div class="controls__title">My Lists</div>
-            <div @click="$router.push('/create-list')" class="controls__action">
+            <div @click="createList()" class="controls__action">
               <img src="../../static/plus.svg" alt="">
             </div>
           </div>
           <div class="list-view__lists">
             <template v-for="(display, idx) in lists">
-              <div :key="idx" class="list-view__list-item" @click="$router.push('/create-list/' + display.title)">
-                <div class="list-view__list-item-container">{{display.title[0]}}</div>
-                <div class="list-view__list-title">{{display.title}}</div>
-              </div>
+              <template v-if="display.title != null">
+                <div :key="idx" class="list-view__list-item" @click="$router.push('/create-list/' + display.title)">
+                  <div class="list-view__list-item-container">{{display.title[0]}}</div>
+                  <div class="list-view__list-title">{{display.title}}</div>
+                </div>
+              </template>
+              <template v-else>
+                <div :key="idx" class="list-view__list-item" @click="$router.push('/create-list/' + display.title)">
+                  <div class="list-view__list-item-container">U</div>
+                  <div class="list-view__list-title">Untitled</div>
+                </div>
+              </template>
             </template>
           </div>
         </template>
@@ -49,13 +57,20 @@ export default {
   },
   methods: {
 
+    createList() {
+      return {
+        createList: this.$store.dispatch('ADD_LIST'),
+        changeRoute: this.$router.push('/create-list')
+      }
+      
+    },
     addList(listTitle){
 
       const payload = {
         title: listTitle
       }
 
-      this.$store.dispatch('ADD_LIST', payload)
+      this.$store.dispatch('FIRST_LIST', payload)
     }
 
   },
