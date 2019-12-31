@@ -36,9 +36,9 @@
               <div v-else-if="activeTask.priority == 'high'" class="tool tools-high spacer">High</div>
 
               <div class="tools" :class="{'tools-active' : toolsActive}">
-                <div @click="activeTask.priority = 'low'" class="tool tools-low">Low</div>
-                <div @click="activeTask.priority = 'medium'" class="tool tools-medium">Medium</div>
-                <div @click="activeTask.priority = 'high'" class="tool tools-high">High</div>
+                <div @click="changePriority('low')" class="tool tools-low">Low</div>
+                <div @click="changePriority('medium')" class="tool tools-medium">Medium</div>
+                <div @click="changePriority('high')" class="tool tools-high">High</div>
               </div>
             </div> 
             <!-- <div @click="getDatePicker()"> -->
@@ -167,6 +167,17 @@ export default {
         id: this.$route.path.split('/task/')[1]
       }
       this.$store.dispatch('CHOOSE_DATE', payload)
+    },
+    changePriority(key) {
+      const payload = {
+        key: key,
+        id: this.$route.path.split('/task/')[1]
+      }
+      return {
+        key: this.activeTask.priority = key,
+        updateDatabase: this.$store.dispatch('CHANGE_PRIORITY', payload)
+      }
+      
     }
   },
   created() {

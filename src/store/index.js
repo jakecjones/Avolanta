@@ -203,6 +203,13 @@ export const store = new Vuex.Store({
           dueDate: context.commit('datePicker')
         }
       },
+      CHANGE_PRIORITY(context, payload) {
+        return {
+          delete: db.collection("tasks").doc(payload.id).set({
+            priority: payload.key
+          }, {merge: true})
+        }
+      },
 
     }
 });

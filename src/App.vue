@@ -7,12 +7,11 @@
               <div class="">{{display.title}}</div>
             </div>
           </template>
-          <!-- <template v-else>
-            <div :key="idx" class="list-view__list-item" @click="$router.push('/list/' + display.id)">
-              <div class="list-view__list-item-container">U</div>
-              <div class="list-view__list-title">Untitled</div>
+          <template v-else>
+            <div :key="idx" class="list" @click="$router.push('/list/' + display.id)">
+              <div>Untitled</div>
             </div>
-          </template> -->
+          </template>
         </template>
       </div>
     <div class="site-notification" :class="{'site-notification-active' : siteNotification.active}">
@@ -139,10 +138,10 @@ this.$store.watch(
     (val)=>{
       val.active == true
       ? setTimeout(() => ({active: this.siteNotification.active = false}), 2500)
-      : null //do something on data change
+      : null
     },
     {
-        deep: true //add this if u need to watch object properties change etc.
+        deep: true
     }
 );
   }
