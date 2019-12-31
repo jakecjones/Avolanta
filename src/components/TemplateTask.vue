@@ -223,9 +223,11 @@ $break-small: 600px;
 .datepicker {
   position: fixed;
   bottom: 0;
-  height: 0;
   overflow: hidden;
-  width: 101%;
+
+  width: 300px;
+  height: 0;
+
   background-color: #3ec196;
   left: 0;
   border-top-left-radius: 25px;
@@ -236,7 +238,10 @@ $break-small: 600px;
 
   .datepicker-absolute {
     position: absolute;
-    top: 20px;
+    top: 0;
+    @media screen and (max-width: $break-small) {
+      top: 20px;
+    }
   }
 
   &__calender {
@@ -248,17 +253,23 @@ $break-small: 600px;
     color: #fff;
   }
   &__day {
-    width: 12.8vw;
-    height: 12.8vw;
+    width: 12.8%;
+    height: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 12px;
     font-family: 'ProximaNova-Thin', 'Avenir', sans-serif;
+    @media screen and (max-width: $break-small) {
+      width: 12.8vw;
+      height: 12.8vw;
+      font-size: 16px;
+    }
   }
 
   &__week {
-    width: 12.8vw;
-    height: 12.8vw;
+    width: 12.8%;
+    height: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -266,6 +277,10 @@ $break-small: 600px;
     font-weight: bolder;
     font-size: 10px;
     color: #b5e3c8;
+    @media screen and (max-width: $break-small) {
+      width: 12.8vw;
+      height: 12.8vw;
+    }
   }
   &__title {
     width: 85%;
@@ -273,18 +288,25 @@ $break-small: 600px;
     align-items: center;
     justify-content: left;
     font-size: 18px;
-    padding: 4vw 0 2vw 0;
+    padding: 2vw 0 0 0;
     font-weight: bolder;
     font-family: 'ProximaNova-Bold', 'Avenir', sans-serif;
     color: #fff;
     margin: 0 auto;
+  }
 
-
+  @media screen and (max-width: $break-small) {
+    height: 0;
+    width: 101%;
   }
 }
 
 .datepicker-active {
-  height: 70%;
+  height: 250px;
+  @media screen and (max-width: $break-small) {
+    height: 70%;
+    width: 101%;
+  }
 }
 
 .list-view {
