@@ -77,6 +77,8 @@ export default {
 
 <style lang="scss">
 
+$break-small: 900px;
+
 .list-view {
   width: 100%;
 

@@ -1,5 +1,20 @@
 <template>
   <div id="app">
+      <div class="panel">
+        <template v-for="(display, idx) in lists">
+          <template v-if="display.title != null">
+            <div :key="idx" class="list" @click="$router.push('/list/' + display.id)">
+              <div class="">{{display.title}}</div>
+            </div>
+          </template>
+          <!-- <template v-else>
+            <div :key="idx" class="list-view__list-item" @click="$router.push('/list/' + display.id)">
+              <div class="list-view__list-item-container">U</div>
+              <div class="list-view__list-title">Untitled</div>
+            </div>
+          </template> -->
+        </template>
+      </div>
     <div class="site-notification" :class="{'site-notification-active' : siteNotification.active}">
       {{siteNotification.message}}
     </div>
@@ -71,8 +86,9 @@
           </svg>
 
     </div>
-
-    <router-view />
+    <div class="components">
+      <router-view />
+    </div>
 
   </div>
 </template>
@@ -100,7 +116,9 @@ export default {
 
   computed: {
     ...mapGetters([
-      'siteNotification'
+      'siteNotification',
+      'lists',
+      'tasks'
     ])
   },
   components: {
@@ -134,6 +152,45 @@ this.$store.watch(
 <style lang="scss">
 $borderRadius: 10px;
 $darkColor: #373542;
+
+$break-small: 600px;
+
+.panel {
+  width: 150px;
+  height: 100%;
+  background-color: #373542;
+  position: fixed;
+  display: block;
+  top: 0;
+  left: 0;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+
+  .list {
+    margin: 5px auto;
+    width: 80%;
+    text-align: left;
+    font-size: 12px;
+  }
+  @media screen and (max-width: $break-small) {
+    display: none;
+  }
+}
+
+.components {
+  width: calc(100% - 150px);
+  left: 150px;
+  position: absolute;
+  overflow-y: scroll;
+  @media screen and (max-width: $break-small) {
+    width: 100%;
+    left: 0;
+    position: relative;
+    overflow-y: scroll;
+  }
+}
 
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -183,9 +240,13 @@ $darkColor: #373542;
 }
 
   .logo {
-    width: 80%;
-    margin: 0 auto 40px auto;
+    display: none;
     transition: 3s all cubic-bezier(0.075, 0.82, 0.165, 1);
+    @media screen and (max-width: $break-small) {
+      margin: 0 auto 40px auto;
+      width: 80%;
+      display: block;
+    }
   }
 
   .logo-icon {
@@ -293,12 +354,13 @@ $darkColor: #373542;
 
 }
 .spacer {
-    margin: 0 5vw 0 2vw;
+    margin: 0 5vw 0 1vw;
 }
+
 .options {
   width: 90%;
   height: auto;
-  padding: 6vw 0;
+  padding: 2vw 0;
   margin: 0 auto;
   position: relative;
   display: flex;
@@ -306,8 +368,8 @@ $darkColor: #373542;
   justify-content: left;
 
   &__action {
-    width: 25px;
-    height: 25px;
+    width: 15px;
+    height: 15px;
     position: absolute;
     bottom: 20px;
     right: 5%;
@@ -330,8 +392,8 @@ $darkColor: #373542;
     font-family: 'ProximaNova-Bold', 'Avenir', sans-serif;
   }
   &__icon {
-    width: 25px;
-    height: 25px;
+    width: 15px;
+    height: 15px;
     position: relative;
 
     border-radius: 50%;
@@ -341,28 +403,79 @@ $darkColor: #373542;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 5vw 0 2vw;
+    margin: 0 5vw 0 1vw;
 
     img { 
       width: 75%;
     }
   }
+  @media screen and (max-width: $break-small) {
+    width: 90%;
+    height: auto;
+    padding: 6vw 0;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: left;
 
+    &__action {
+      width: 15px;
+      height: 15px;
+      position: absolute;
+      bottom: 20px;
+      right: 5%;
 
+      border-radius: 50%;
+      position: absolute;
+      background-color: #fff;
+      border: .09rem dashed #b5e3c8;
 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      img { 
+        width: 75%;
+      }
+    }
+    span {
+      color: #3EC196;
+      font-family: 'ProximaNova-Bold', 'Avenir', sans-serif;
+    }
+    &__icon {
+      width: 25px;
+      height: 25px;
+      position: relative;
+
+      border-radius: 50%;
+      background-color: #fff;
+      border: .09rem dashed #b5e3c8;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 5vw 0 2vw;
+
+      img { 
+        width: 75%;
+      }
+    }
+
+  }
 
 }
 
 .controls {
   width: 90%;
   display: flex;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   position: relative;
 
   &__title {
     width: 90%;
     font-weight: bolder;
-    font-size: 6vw;
+    font-size: 20px;
     font-family: 'ProximaNova-Bold', 'Avenir', sans-serif;
     color: $darkColor;
     text-align: left;
@@ -373,7 +486,7 @@ $darkColor: #373542;
   &__sub-title {
     width: 90%;
     font-weight: bolder;
-    font-size: 4.5vw;
+    font-size: 16px;
     font-family: 'ProximaNova-Bold', 'Avenir', sans-serif;
     color: $darkColor;
     &::placeholder {
@@ -381,11 +494,12 @@ $darkColor: #373542;
     }
   }
   &__action {
-    width: 10%;
+    width: 20px;
     display: flex;
     align-items: center;
     justify-content:baseline;
     position: relative;
+    cursor: pointer;
     img {
       width: 100%;
     }
@@ -395,11 +509,9 @@ $darkColor: #373542;
     width: 100%;
   }
   &__task-list {
-    width: calc(69vw - 15px);
+    width: 100%;
     padding: 0 1vw 6vw 25px;
-    // background-color: red;
     position: relative;
-    // border-left: 1px solid #b5e3c8;
     margin-left: 15px;
   }
   &__task-border {
@@ -449,13 +561,12 @@ $darkColor: #373542;
     color: #3ec196;
     font-style: italic;
   }
-  &__more{
+  &__more {
     width: 24px;
     height: 24px;
     position: absolute;
     top: 0;
     right: 0;
-
   } 
 
   textarea {
@@ -464,10 +575,129 @@ $darkColor: #373542;
     outline: none;
     padding: 0;
     padding-left: 0;
-    font-size: 4.5vw;
+    font-size: 14px;
     background-color: transparent;
     font-family: 'ProximaNova-Thin', 'Avenir', sans-serif;
 
+  }
+
+  @media screen and (max-width: $break-small) {
+
+    width: 90%;
+    display: flex;
+    margin-bottom: 20px;
+    position: relative;
+    
+    &__title {
+      width: 90%;
+      font-weight: bolder;
+      font-size: 6vw;
+      font-family: 'ProximaNova-Bold', 'Avenir', sans-serif;
+      color: $darkColor;
+      text-align: left;
+      &::placeholder {
+        color: $darkColor;
+      }
+    }
+    &__sub-title {
+      width: 90%;
+      font-weight: bolder;
+      font-size: 4.5vw;
+      font-family: 'ProximaNova-Bold', 'Avenir', sans-serif;
+      color: $darkColor;
+      &::placeholder {
+        color: $darkColor;
+      }
+    }
+    &__action {
+      width: 10%;
+      display: flex;
+      align-items: center;
+      justify-content:baseline;
+      position: relative;
+      img {
+        width: 100%;
+      }
+    }
+
+    &__tasks {
+      width: 100%;
+    }
+    &__task-list {
+      width: calc(69vw - 15px);
+      padding: 0 1vw 6vw 25px;
+      // background-color: red;
+      position: relative;
+      // border-left: 1px solid #b5e3c8;
+      margin-left: 15px;
+    }
+    &__task-border {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      left: -1px;
+      background-color: #fff;
+      border-left: .09rem solid #b5e3c8;
+    } 
+    &__task-checked {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      position: absolute;
+      top: 0;
+      left: -14px;
+      background-color: #fff;
+      border: .09rem dashed #b5e3c8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      img {
+        width: 50%;
+        height: 50%;
+      }
+    }
+    &__task-checked-active {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      position: absolute;
+      top: 0;
+      left: -14px;
+      background-color: #fff;
+      background-color: #b5e3c8;
+      border: .09rem solid #b5e3c8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      img {
+        width: 80%;
+        height: 80%;
+      }
+    } 
+    .completed {
+      color: #3ec196;
+      font-style: italic;
+    }
+    &__more{
+      width: 24px;
+      height: 24px;
+      position: absolute;
+      top: 0;
+      right: 0;
+
+    } 
+
+    textarea {
+      width: 100%;
+      border: none;
+      outline: none;
+      padding: 0;
+      padding-left: 0;
+      font-size: 4.5vw;
+      background-color: transparent;
+      font-family: 'ProximaNova-Thin', 'Avenir', sans-serif;
+
+    }
   }
 }
 .container {
@@ -482,6 +712,7 @@ $darkColor: #373542;
 input {
   border: none;
   outline: none;
+  background-color: transparent;
   
   // padding: 4vw 2vw;
 }
