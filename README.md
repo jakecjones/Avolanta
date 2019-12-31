@@ -1,5 +1,11 @@
 # avolanta-exercise
 
+Welcome to my avolanta list maker exercise!
+
+### You will need to save the private config folder into the main directory *(see email)*
+
+
+
 ## Project setup
 ```
 npm install
@@ -25,5 +31,3 @@ npm run test
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
