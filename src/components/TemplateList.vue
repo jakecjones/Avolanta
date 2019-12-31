@@ -36,6 +36,10 @@
 
                   <input @keyup="saveTask(display)" @keydown.enter="createTask(idx)" class="task-input" type="text" v-model="display.title" :ref="idx" placeholder="task name">
 
+                  <div v-if="display.priority == 'low'" class="priority tools-low">Low</div>
+                  <div v-else-if="display.priority == 'medium'" class="priority tools-medium">Medium</div>
+                  <div v-else-if="display.priority == 'high'" class="priority tools-high">High</div>
+
                   <div class="controls__more" @click="$router.push('/task/' + display.id)">
                     <img src="../../static/more.svg">
                   </div>
@@ -110,7 +114,31 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+$break-small: 600px;
+
+.priority {
+  position: absolute;
+  top: 2px;
+  left: 100%;
+  margin-left: 10px;
+
+    text-transform: uppercase;
+    font-size: 10px;
+    border-radius: 50px;
+    font-family: 'ProximaNova-Bold', 'Avenir', sans-serif;
+    padding: 5px 10px;
+}
+
+  .tool {
+    position: absolute;
+    margin: 0;
+    font-size: 10px;
+    padding: 3px 5px;
+    @media screen and (max-width: $break-small) {
+      font-size: 5px;
+    }
+  }
 
 .list-view {
   width: 100%;
@@ -124,12 +152,8 @@ export default {
 }
 
 
-textarea {
-}
 
-// &__list-title {
-//   font-size: 30vw;
-// }
+
     input {
         // background-color: red;
     }

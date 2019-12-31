@@ -160,11 +160,14 @@ export default {
     },
     chooseDate(display, idx){
       this.activeDay = idx
+      let month = this.months[new Date().getMonth()]
+      let day = idx + 1
 
       const payload = {
-        day: idx + 1,
-        month: this.months[new Date().getMonth()],
-        id: this.$route.path.split('/task/')[1]
+        day: day,
+        month: month,
+        id: this.$route.path.split('/task/')[1],
+        changeClient: this.activeTask.dueDate = `${month} ${day}`
       }
       this.$store.dispatch('CHOOSE_DATE', payload)
     },
@@ -203,14 +206,19 @@ $break-small: 600px;
   border-radius: 10px;
 }
 .due-date {
-  font-size: 8px;
+  font-size: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: lighter;
+  font-weight: bold;
   font-family: 'ProximaNova-Thin', 'Avenir', sans-serif;
   position: relative;
   margin-top: 2px;
+  margin-left: 10px;
+  background-color: #e6ffee;
+  color: #3ec196;
+  padding: 3px 5px;
+  border-radius: 50px;
 }
 .datepicker {
   position: fixed;

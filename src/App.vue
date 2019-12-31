@@ -189,7 +189,7 @@ $break-small: 600px;
     width: 100%;
     left: 0;
     position: relative;
-    overflow-y: scroll;
+    overflow-y: unset;
   }
 }
 
@@ -353,8 +353,8 @@ $break-small: 600px;
 
   .tool {
     text-transform: uppercase;
-    font-size: 10px;
-    margin: 10px 0;
+    font-size: 8px;
+    margin: 10px;
     border-radius: 50px;
     font-family: 'ProximaNova-Bold', 'Avenir', sans-serif;
     padding: 5px 10px;
@@ -363,6 +363,7 @@ $break-small: 600px;
     justify-content: center;
     position: relative;
     width: unset;
+    max-width: 50px;
 
   @media screen and (max-width: $break-small) {
     font-size: 10px;
@@ -380,7 +381,12 @@ $break-small: 600px;
 
 }
 .spacer {
-    margin: 0 5vw 0 1vw;
+    margin: 0 5vw 0 5px;
+    @media screen and (max-width: $break-small) {
+      margin: 0 5vw 0 1vw;
+    }
+
+    
 }
 
 .options {
@@ -650,7 +656,7 @@ $break-small: 600px;
       width: 100%;
     }
     &__task-list {
-      width: calc(69vw - 15px);
+      width: calc(69vw - 70px);
       padding: 0 1vw 6vw 25px;
       // background-color: red;
       position: relative;
