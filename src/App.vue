@@ -500,8 +500,8 @@ $break-small: 600px;
     justify-content: left;
 
     &__action {
-      width: 15px;
-      height: 15px;
+      width: 20px;
+      height: 20px;
       position: absolute;
       bottom: 20px;
       right: 5%;
@@ -551,6 +551,11 @@ $break-small: 600px;
   display: flex;
   margin-bottom: 15px;
   position: relative;
+
+  &__date {
+    font-size: 10px;
+    font-family: 'ProximaNova-Thin', 'Avenir', sans-serif;
+  }
 
   &__title {
     width: 90%;

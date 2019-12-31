@@ -15,6 +15,7 @@
           <div class="controls">
             <textarea @keyup="saveList()" cols="30" rows="2" placeholder="Description" v-model="activeList.description"></textarea>
           </div>
+
           <div class="controls">
             <div class="controls__sub-title">Tasks</div>
           </div>
@@ -45,6 +46,9 @@
                   </div>
               </div>
             </div>
+          </div>
+          <div class="controls">
+            <div class="controls__date">created: {{createDate(activeList.createdAt.seconds)}}</div>
           </div>
       </div>
       <section class="options">
@@ -79,7 +83,11 @@ export default {
     ])
   },
   methods: {
-
+    createDate(payload){
+        var t = new Date(1970, 0, 1); // Epoch
+        t.setSeconds(payload);
+        return t.toString().split(' ').slice(0,4).join(' ')
+    },
     saveList(){
       setTimeout(this.autosaveList, 3000)
     },

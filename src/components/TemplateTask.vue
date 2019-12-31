@@ -53,12 +53,17 @@
           <div class="controls">
             <textarea @keyup="saveTask()" cols="30" rows="2" placeholder="Description" v-model="activeTask.description"></textarea>
           </div>
+
+          <div class="controls">
+            <div class="controls__date">created: {{createDate(activeTask.createdAt.seconds)}}</div>
+          </div>
       </div>
       <section class="options">
         <div @click="deleteTask()" class="options__action">
           <img src="../../static/trash.svg">
         </div>      
       </section>
+
       <section class="datepicker" :class="{'datepicker-active' : datePicker}">
 
         <div class="datepicker-absolute">
@@ -131,6 +136,11 @@ export default {
   },
   methods: {
 
+    createDate(payload){
+        var t = new Date(1970, 0, 1); // Epoch
+        t.setSeconds(payload);
+        return t.toString().split(' ').slice(0,4).join(' ')
+    },
     saveList(){
       setTimeout(this.autosaveList, 3000)
     },
