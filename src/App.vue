@@ -1,18 +1,23 @@
 <template>
   <div id="app">
       <div class="panel">
-        <template v-for="(display, idx) in lists">
-          <template v-if="display.title != null">
-            <div :key="idx" class="list" @click="$router.push('/list/' + display.id)">
-              <div class="">{{display.title}}</div>
-            </div>
+        <div class="panel__scroll">
+
+          <template v-for="(display, idx) in lists">
+            <template v-if="display.title != null">
+              <div :key="idx" class="list" @click="$router.push('/list/' + display.id)">
+                <div class="">{{display.title}}</div>
+              </div>
+            </template>
+            <template v-else>
+              <div :key="idx" class="list" @click="$router.push('/list/' + display.id)">
+                <div>Untitled</div>
+              </div>
+            </template>
           </template>
-          <template v-else>
-            <div :key="idx" class="list" @click="$router.push('/list/' + display.id)">
-              <div>Untitled</div>
-            </div>
-          </template>
-        </template>
+        </div>
+        <span @click="createList()" class="trigger-color">add new list <img src="../static/plus.svg"></span>
+
       </div>
     <div class="site-notification" :class="{'site-notification-active' : siteNotification.active}">
       {{siteNotification.message}}
@@ -126,6 +131,9 @@ export default {
   methods: {
     getLists(){
       this.$store.dispatch('LOAD_LISTS')
+    },
+    createList() {
+      this.$store.dispatch('ADD_LIST')
     }
   },
   created() {
@@ -157,7 +165,7 @@ $break-small: 600px;
 .panel {
   width: 150px;
   height: 100%;
-  background-color: #373542;
+  background-color: #2a2833;
   position: fixed;
   display: block;
   top: 0;
@@ -167,8 +175,19 @@ $break-small: 600px;
   flex-direction: column;
   padding-top: 20px;
 
+  &__scroll {
+    width: 100%;
+    background-color: #383644;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-top: 10px;
+    max-height: 200px;
+    overflow-y: scroll;
+  }
+
   .list {
-    margin: 5px auto;
+    margin: 10px auto;
     width: 80%;
     text-align: left;
     font-size: 12px;
@@ -305,6 +324,35 @@ $break-small: 600px;
   align-items: center;
   justify-content: center;
   position: relative;
+  img {
+    width: 15px;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    margin-top: -7.5px;
+  }
+  @media screen and (max-width: $break-small) {
+    padding: 1vw 35px 1vw 4vw;
+  }
+}
+.trigger-color {
+  cursor: pointer;
+  background-color: #383644;
+  color: #7b6996;
+  border-radius: 50px;
+  font-family: 'ProximaNova-Bold', 'Avenir', sans-serif;
+  font-size: 8px;
+  padding: 1vw 35px 1vw 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 70px;
+  position: absolute;
+  bottom: 50px; 
+  left: 50%;
+  margin-left: -60px;
+  
   img {
     width: 15px;
     position: absolute;
