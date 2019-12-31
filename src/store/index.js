@@ -64,6 +64,9 @@ export const store = new Vuex.Store({
       activeTask(state, payload) {
         state.activeTask = {}
         state.activeTask = payload
+      },
+      resetList(state) {
+        state.activeList = {}
       }
     },
     actions: {

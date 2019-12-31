@@ -86,7 +86,7 @@
 
     </div>
     <div class="components">
-      <router-view />
+      <router-view :key="$route.fullPath" />
     </div>
 
   </div>
@@ -400,8 +400,8 @@ $break-small: 600px;
   justify-content: left;
 
   &__action {
-    width: 15px;
-    height: 15px;
+    width: 25px;
+    height: 25px;
     position: absolute;
     bottom: 20px;
     right: 5%;

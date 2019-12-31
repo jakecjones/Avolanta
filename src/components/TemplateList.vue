@@ -102,7 +102,11 @@ export default {
       this.$store.dispatch('ADD_TASK', this.activeList.id)
     },
     deleteList(){
-      this.$store.dispatch('DELETE_LIST', this.activeList)
+    var q = prompt("This will delete all substasks as well. Do you still wish to delete?", "yes");
+
+      if (q == 'yes') {
+        this.$store.dispatch('DELETE_LIST', this.activeList)
+      }
     },
   },
   created() {
