@@ -7,7 +7,7 @@
             </div>
           </div>
           <div class="controls">
-            <input class="controls__title" v-model="activeTask.title" @keyup="saveTask()" placeholder="List Title">
+            <input class="controls__title" v-model="activeTask.title" @keyup="saveTask()" placeholder="Task name">
 
             <div v-if="activeTask.status == 'open'" @click="updateTask(activeTask); activeTask.status = 'completed'" class="controls__action">
                 <div class="controls__task-checked">
@@ -178,6 +178,9 @@ export default {
 
 <style lang="scss" scoped>
 
+$break-small: 600px;
+
+
 .active-day {
   background-color: #fff;
   color: #3ec196;
@@ -299,14 +302,7 @@ export default {
   } 
 }
 
-&__add {
-  width: 150px;
-  background-color: #373542;
-  color: #fff;
-  padding: 2vw;
-  border-radius: 50px;
-  font-size: 4vw;
-}
+
 
 &__lists {
   width: 100%;
@@ -315,35 +311,7 @@ export default {
   flex-flow: wrap;
 }
 
-&__list-item-container {
-  width: 100%;
-  height: 39vw;
-  overflow: hidden;
-  background-color: #e6ffee;
-  margin: 2vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 20px;
-  box-shadow: rgba(0, 0, 0, 0.09) 2px 2px 5px 0px;
-  font-size: 16vw;
-  color: #9dc1aa;
-  text-transform: uppercase;
-  font-weight: bolder;
 
-}
-
-&__list-item {
-  width: 39vw;
-  height: auto;
-  overflow: hidden;
-  margin: 2vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border-radius: 20px;
-}
 
 textarea {
 }

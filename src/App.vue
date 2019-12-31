@@ -173,6 +173,7 @@ $break-small: 600px;
     width: 80%;
     text-align: left;
     font-size: 12px;
+    cursor: pointer;
   }
   @media screen and (max-width: $break-small) {
     display: none;
@@ -184,6 +185,7 @@ $break-small: 600px;
   left: 150px;
   position: absolute;
   overflow-y: scroll;
+  height: 100%;
   @media screen and (max-width: $break-small) {
     width: 100%;
     left: 0;
@@ -279,17 +281,27 @@ $break-small: 600px;
   font-family: 'ProximaNova-Thin', 'Avenir', sans-serif;
   overflow: hidden;
   transition: all .5s cubic-bezier(0.86, 0, 0.07, 1);
+  font-size: 14px;
+  z-index: 999;
+  @media screen and (max-width: $break-small) {
+    font-size: 4vw;
+  }
 }
 .site-notification-active {
-  height: 8vw;
+  height: 3vw;
+  @media screen and (max-width: $break-small) {
+    height: 8vw;
+  }
 }
 
 .trigger {
+  cursor: pointer;
   background-color: #fae9e8;
   color: #e8908a;
   border-radius: 50px;
   font-family: 'ProximaNova-Bold', 'Avenir', sans-serif;
-  padding: 1vw 35px 1vw 4vw;
+  font-size: 10px;
+  padding: 1vw 35px 1vw 2vw;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -300,6 +312,9 @@ $break-small: 600px;
     right: 10px;
     top: 50%;
     margin-top: -7.5px;
+  }
+  @media screen and (max-width: $break-small) {
+    padding: 1vw 35px 1vw 4vw;
   }
 }
 .tools-low {
@@ -315,10 +330,11 @@ $break-small: 600px;
   color: #e8908a;
 }
 .tools {
+  cursor: pointer;
   position: absolute;
   width: auto;
   height: auto;
-  padding: 4vw 6vw;
+  padding: 5px 10px;
   background-color: #fff;
   left: -10px;
   top: 100%;
@@ -330,21 +346,32 @@ $break-small: 600px;
   transition: all .3s cubic-bezier(0.075, 0.82, 0.165, 1);
   opacity: 0;
   pointer-events: none;
+    @media screen and (max-width: $break-small) {
+      padding: 4vw 6vw;
+    }
 
 }
 
   .tool {
     text-transform: uppercase;
     font-size: 10px;
-    margin: 4vw 0;
+    margin: 10px 0;
     border-radius: 50px;
     font-family: 'ProximaNova-Bold', 'Avenir', sans-serif;
-    padding: 2vw 4vw;
+    padding: 5px 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     width: unset;
+
+  @media screen and (max-width: $break-small) {
+    font-size: 10px;
+    margin: 4vw 0;
+    border-radius: 50px;
+    font-family: 'ProximaNova-Bold', 'Avenir', sans-serif;
+    padding: 2vw 4vw;
+  }
   }
 
 .tools-active {
@@ -722,14 +749,21 @@ input {
 
 }
 .home-input {
-  width: 80%;
+  width: 300px;
   background-color: #e6ffee;
   border-radius: $borderRadius;
   border-top-left-radius: 0;
   text-align: center;
-  font-size: 5vw;
-  margin: 30px auto;
-  padding: 4vw 2vw; 
+  font-size: 15px;
+  margin: 15px auto;
+  padding: 1vw 2vw; 
+
+  @media screen and (max-width: $break-small) {
+    font-size: 5vw;
+    margin: 30px auto;
+    padding: 4vw 2vw; 
+  }
+  
 }
 
 </style>

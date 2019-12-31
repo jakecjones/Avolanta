@@ -77,7 +77,7 @@ export default {
 
 <style lang="scss">
 
-$break-small: 900px;
+$break-small: 600px;
 
 .list-view {
   width: 100%;
@@ -86,9 +86,15 @@ $break-small: 900px;
   width: 150px;
   background-color: #373542;
   color: #fff;
-  padding: 2vw;
+  padding: 5px 20px;
   border-radius: 50px;
-  font-size: 4vw;
+  font-size: 14px;
+  @media screen and (max-width: $break-small) {
+    padding: 2vw;
+    border-radius: 50px;
+    font-size: 4vw;
+  }
+
 }
 
 &__lists {
@@ -96,11 +102,12 @@ $break-small: 900px;
   display: flex;
   flex-direction: row;
   flex-flow: wrap;
+  align-items: baseline;
 }
 
 &__list-item-container {
-  width: 100%;
-  height: 39vw;
+  width: 120px;
+  height: 120px;
   overflow: hidden;
   background-color: #e6ffee;
   margin: 2vw;
@@ -109,15 +116,28 @@ $break-small: 900px;
   align-items: center;
   border-radius: 20px;
   box-shadow: rgba(0, 0, 0, 0.09) 2px 2px 5px 0px;
-  font-size: 16vw;
+  font-size: 24px;
   color: #9dc1aa;
   text-transform: uppercase;
   font-weight: bolder;
+  transition: 1.5s all cubic-bezier(0.075, 0.82, 0.165, 1);
 
+  &:hover {
+    background-color: #d6f0de;
+  }
+  @media screen and (max-width: $break-small) {
+    width: 36vw;
+    height: 36vw;
+    font-size: 16vw;
+    &:hover {
+      background-color: #e6ffee;
+    }
+  }
 }
 
 &__list-item {
-  width: 39vw;
+  cursor: pointer;
+  width: 140px;
   height: auto;
   overflow: hidden;
   margin: 2vw;
@@ -125,11 +145,16 @@ $break-small: 900px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-radius: 20px;
+  @media screen and (max-width: $break-small) {
+    width: 39vw;
+  }
 }
 
-// &__list-title {
-//   font-size: 30vw;
+&__list-title {
+  font-size: 11px;
+  font-family: 'ProximaNova-Thin', 'Avenir', sans-serif;
+
+}
 // }
     input {
         // background-color: red;
